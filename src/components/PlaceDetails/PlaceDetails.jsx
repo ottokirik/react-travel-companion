@@ -1,3 +1,3 @@
-export function PlaceDetails() {
-  return <div>PD</div>;
-}
+export const PlaceDetails = ({ place }) => {
+  return <div>{place.name}</div>;
+};
