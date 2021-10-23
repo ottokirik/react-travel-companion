@@ -8,8 +8,11 @@ export const App = () => {
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState(null);
   const [childClicked, setChildClicked] = useState(null);
+  const [type, setType] = useState('restaurants');
+  const [rating, setRating] = useState(0);
+  const [places, setPlaces] = useState();
 
-  const { data, error } = useSWR(bounds ? [URL, bounds] : null, getPlacesData, {
+  const { data } = useSWR(bounds ? [URL, bounds, type] : null, getPlacesData, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
@@ -21,20 +24,36 @@ export const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    if (!data) return;
+
+    const filteredPlaces = data.filter((d) => d.rating > rating);
+
+    setPlaces(filteredPlaces);
+  }, [rating, data]);
+
   return (
     <>
       <CssBaseline />
       <Header />
       <Grid container spacing={3} style={{ width: '100%' }}>
         <Grid item xs={12} md={4}>
-          <List places={data} childClicked={childClicked} isLoading={!data} />
+          <List
+            places={places}
+            childClicked={childClicked}
+            isLoading={!data}
+            type={type}
+            setType={setType}
+            rating={rating}
+            setRating={setRating}
+          />
         </Grid>
         <Grid item xs={12} md={8}>
           <Map
             setCoordinates={setCoordinates}
             setBounds={setBounds}
             coordinates={coordinates}
-            places={data}
+            places={places}
             setChildClicked={setChildClicked}
           />
         </Grid>

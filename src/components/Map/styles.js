@@ -19,7 +19,7 @@ export const useStyles = makeStyles(() => ({
     transform: 'translate(-50%, -50%)',
     transition: `all .3s`,
     zIndex: 1,
-    '&:hover': { zIndex: 20, transform: `scale(1.2) translate(-50%, -50%)` },
+    '&:hover': { zIndex: 20, transform: `scale(1.3) translate(-50%, -50%)` },
   },
 
   pointer: {
