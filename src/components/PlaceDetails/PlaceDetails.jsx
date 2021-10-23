@@ -8,12 +8,17 @@ import {
   CardActions,
   Button,
 } from '@material-ui/core';
+import { Rating } from '@material-ui/lab';
 import { Phone } from '@material-ui/icons';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { useStyles } from './styles';
 
-export const PlaceDetails = ({ place }) => {
+export const PlaceDetails = ({ place, selected, refProp }) => {
   const classes = useStyles();
+
+  if (selected) {
+    refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 
   return (
     <Card elevation={6}>
@@ -30,6 +35,12 @@ export const PlaceDetails = ({ place }) => {
         <Typography gutterBottom variant="h5">
           {place.name}
         </Typography>
+        <Box display="flex" justifyContent="space-between">
+          <Rating name="read-only" value={Number(place.rating)} readOnly />
+          <Typography variant="subtitle1" gutterBottom>
+            out of {place.num_reviews} reviews
+          </Typography>
+        </Box>
         <Box display="flex" justifyContent="space-between">
           <Typography variant="subtitle1">Price:</Typography>
           <Typography variant="subtitle1" gutterBottom>

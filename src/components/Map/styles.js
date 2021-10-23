@@ -17,8 +17,9 @@ export const useStyles = makeStyles(() => ({
   markerContainer: {
     position: 'absolute',
     transform: 'translate(-50%, -50%)',
+    transition: `all .3s`,
     zIndex: 1,
-    '&:hover': { zIndex: 2 },
+    '&:hover': { zIndex: 20, transform: `scale(1.2) translate(-50%, -50%)` },
   },
 
   pointer: {

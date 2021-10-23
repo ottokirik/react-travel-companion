@@ -7,8 +7,13 @@ import useSWR from 'swr';
 export const App = () => {
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState(null);
+  const [childClicked, setChildClicked] = useState(null);
 
-  const { data, error } = useSWR(bounds ? [URL, bounds] : null, getPlacesData);
+  const { data, error } = useSWR(bounds ? [URL, bounds] : null, getPlacesData, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(({ coords: { latitude: lat, longitude: lng } }) => {
@@ -22,10 +27,16 @@ export const App = () => {
       <Header />
       <Grid container spacing={3} style={{ width: '100%' }}>
         <Grid item xs={12} md={4}>
-          <List places={data} />
+          <List places={data} childClicked={childClicked} isLoading={!data} />
         </Grid>
         <Grid item xs={12} md={8}>
-          <Map setCoordinates={setCoordinates} setBounds={setBounds} coordinates={coordinates} />
+          <Map
+            setCoordinates={setCoordinates}
+            setBounds={setBounds}
+            coordinates={coordinates}
+            places={data}
+            setChildClicked={setChildClicked}
+          />
         </Grid>
       </Grid>
     </>
