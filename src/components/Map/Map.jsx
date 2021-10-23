@@ -2,11 +2,9 @@ import { useMediaQuery } from '@material-ui/core';
 import GoogleMapReact from 'google-map-react';
 import { useStyles } from './styles';
 
-export const Map = () => {
+export const Map = ({ setCoordinates, setBounds, coordinates }) => {
   const classes = useStyles();
   const isMobile = useMediaQuery('(min-width: 600px)');
-
-  const coordinates = { lat: 0, lng: 0 };
 
   return (
     <div className={classes.mapContainer}>
@@ -17,7 +15,10 @@ export const Map = () => {
         defaultZoom={14}
         margin={[50, 50, 50, 50]}
         options={''}
-        onChange={() => {}}
+        onChange={({ center: { lat, lng }, bounds: { ne, sw } }) => {
+          setCoordinates({ lat, lng });
+          setBounds({ ne, sw });
+        }}
         onChildClick={() => {}}
       ></GoogleMapReact>
     </div>

@@ -8,6 +8,7 @@
 - @react-google-maps/api
 - google-map-react
 - axios
+- swr
 
 Для унификации запросов используется [RapidAPI][2]
 

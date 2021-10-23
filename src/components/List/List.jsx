@@ -3,13 +3,13 @@ import { PlaceDetails } from 'components';
 import { useState } from 'react';
 import { useStyles } from './styles';
 
-export const List = () => {
+export const List = ({ places = [] }) => {
   const classes = useStyles();
 
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState('');
 
-  const places = [{ name: '1' }, { name: '2' }, { name: '3' }];
+  console.log(places);
 
   return (
     <div className={classes.container}>
@@ -32,8 +32,8 @@ export const List = () => {
         </Select>
       </FormControl>
       <Grid container spacing={3} className={classes.list}>
-        {places?.map((place) => (
-          <Grid item key={place.name} xs={12}>
+        {places?.map((place, idx) => (
+          <Grid item key={idx} xs={12}>
             <PlaceDetails place={place} />
           </Grid>
         ))}
