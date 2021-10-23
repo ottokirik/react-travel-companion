@@ -9,8 +9,6 @@ export const List = ({ places = [] }) => {
   const [type, setType] = useState('restaurants');
   const [rating, setRating] = useState('');
 
-  console.log(places);
-
   return (
     <div className={classes.container}>
       <Typography variant="h4">Restaurants, Hotels & Attractions arround you</Typography>
